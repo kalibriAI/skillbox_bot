@@ -1,0 +1,1805 @@
+{
+  "data": {
+    "propertyInfo": {
+      "__typename": "PropertyInfo",
+      "summary": {
+        "__typename": "PropertySummary",
+        "fees": null,
+        "id": "92832539",
+        "name": "Хостел Hayot",
+        "map": {
+          "__typename": "PropertyInfoMap",
+          "markers": [
+            {
+              "__typename": "PointOfInterest",
+              "mapMarker": {
+                "__typename": "MapMarker",
+                "icon": "AIRPORT",
+                "latLong": {
+                  "__typename": "Coordinates",
+                  "latitude": 41.262517,
+                  "longitude": 69.266503
+                },
+                "type": "POI"
+              },
+              "poiContent": null,
+              "subtitle": "17 min drive",
+              "title": "Ташкент (TAS-Ташкент, международный)"
+            },
+            {
+              "__typename": "PointOfInterest",
+              "mapMarker": {
+                "__typename": "MapMarker",
+                "icon": "HOTEL",
+                "latLong": {
+                  "__typename": "Coordinates",
+                  "latitude": 41.245596,
+                  "longitude": 69.316218
+                },
+                "type": "HOTEL"
+              },
+              "poiContent": {
+                "__typename": "PoiContent",
+                "description": null,
+                "id": "92832539",
+                "image": null
+              },
+              "subtitle": null,
+              "title": "Хостел Hayot"
+            }
+          ]
+        },
+        "policies": {
+          "__typename": "PropertyPolicies",
+          "checkinEnd": null,
+          "checkinInstructions": [
+            "Front desk staff will greet guests on arrival"
+          ],
+          "checkinMinAge": null,
+          "checkinStart": null,
+          "checkoutTime": null,
+          "childAndBed": null,
+          "needToKnow": {
+            "__typename": "PropertyInfoSubSection",
+            "body": [
+              "Если для въезда в страну вам требуется виза, ваш отель в большинстве случаев предоставит вам необходимые документы для ее получения. За более подробной информацией обращайтесь в отель, контактная информация указана в подтверждении бронирования. За эти услуги может взиматься дополнительная плата, даже в случае последующей отмены бронирования. Все договоренности осуществляются исключительно между вами и отелем. ",
+              "Примите во внимание, что все расчеты в отеле (как наличные, так и безналичные) осуществляются в долларах США или евро, в зависимости от того, какую валюту принимает отель. ",
+              "Шумоизоляция в номерах не гарантируется. ",
+              "В объекте размещения нет лифта. ",
+              "Этот объект размещения принимает к оплате кредитные карты и наличные."
+            ],
+            "descriptions": [],
+            "title": "You need to know"
+          },
+          "paymentOptions": [],
+          "pets": {
+            "__typename": "PropertyInfoSubSection",
+            "body": [
+              "Pets not allowed"
+            ],
+            "descriptions": [],
+            "title": "Pets"
+          },
+          "shouldMention": {
+            "__typename": "PropertyInfoSubSection",
+            "body": [
+              "This property does not have elevators",
+              "If you require a visa to enter the country, your property may be able to help with the supporting documents needed to obtain one. To learn more, you can reach out to the property via the contact details included on your booking confirmation. The property may charge for this assistance, even if you end up cancelling your reservation. All arrangements are solely between the property and yourself.",
+              "Please note that any payments to the hotel (whether cash or non-cash transactions) must be made in either USD or EUR, whichever is accepted by the property"
+            ],
+            "descriptions": [],
+            "title": "We should mention"
+          }
+        },
+        "telesalesPhoneNumber": "",
+        "bannerMessage": null,
+        "latinAlphabetName": "",
+        "tagline": "Basic hostel in Tashkent ",
+        "starRatingIcon": {
+          "__typename": "Icon",
+          "token": "STAR"
+        },
+        "overview": {
+          "__typename": "PropertyOverview",
+          "vipMessaging": null,
+          "inventoryType": null,
+          "accessibilityLabel": "Overview of Хостел Hayot",
+          "label": null,
+          "propertyRating": {
+            "__typename": "EGDSIconRating",
+            "rating": 1,
+            "accessibility": "1.0 star property",
+            "icon": {
+              "__typename": "Icon",
+              "id": "star",
+              "description": "star rating",
+              "size": null,
+              "token": "icon__star",
+              "theme": null
+            }
+          }
+        },
+        "featuredMessages": null,
+        "spaceOverview": null,
+        "amenities": {
+          "__typename": "PropertyAmenities",
+          "amenities": [
+            {
+              "__typename": "PropertyInfoSection",
+              "title": "At a glance",
+              "sections": [],
+              "header": {
+                "__typename": "LodgingHeader",
+                "icon": null,
+                "text": "At a glance",
+                "subText": null
+              },
+              "contents": [
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Hotel size",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "10 rooms",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Arriving/Leaving",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Check-in time from 2:00 PM - anytime",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Minimum check-in age: 16 ",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Check-out time is noon",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Restrictions related to your trip",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Check COVID-19 restrictions.",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Special check-in instructions",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Front desk staff will greet guests on arrival",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Required at check-in",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Credit card, debit card, or cash deposit required for incidental charges",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Government-issued photo ID may be required",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Minimum check-in age is 16 ",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "If you require a visa to enter the country, your property may be able to help with the supporting documents needed to obtain one*",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Pets",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Pets not allowed",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Internet",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "wifi",
+                    "description": "",
+                    "size": null,
+                    "token": "wifi",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Free WiFi in rooms (speed: 25+ Mbps)",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Parking",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "local_parking",
+                    "description": "",
+                    "size": null,
+                    "token": "local_parking",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Free secured, uncovered onsite self parking",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Other information",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Designated smoking areas",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "__typename": "PropertyInfoSection",
+              "title": "Property amenities",
+              "sections": [],
+              "header": {
+                "__typename": "LodgingHeader",
+                "icon": null,
+                "text": "Property amenities",
+                "subText": null
+              },
+              "contents": [
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Services",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "room_service",
+                    "description": "",
+                    "size": null,
+                    "token": "room_service",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "24-hour front desk",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Laundry facilities",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Luggage storage",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Facilities",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Lockers available",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Accessibility",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "accessible",
+                    "description": "",
+                    "size": null,
+                    "token": "accessible",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Hardwood flooring in room",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "__typename": "PropertyInfoSection",
+              "title": "Room amenities",
+              "sections": [],
+              "header": {
+                "__typename": "LodgingHeader",
+                "icon": null,
+                "text": "Room amenities",
+                "subText": null
+              },
+              "contents": [
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Home comfort",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Air conditioning",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Slippers",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Iron/ironing board (on request)",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "All-in-one washer and dryer",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Window screens",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Sleep well",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Blackout drapes/curtains",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Soundproofed rooms",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "What to enjoy",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Separate dining area",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Freshen up",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "2 bathrooms",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Hair dryer",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Towels",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "Stay connected",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Desk",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    },
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Free WiFi (speed of 25+ Mbps) ",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                },
+                {
+                  "__typename": "PropertyInfoContent",
+                  "header": {
+                    "__typename": "LodgingHeader",
+                    "text": "More",
+                    "subText": null,
+                    "mark": null
+                  },
+                  "icon": {
+                    "__typename": "Icon",
+                    "id": "done",
+                    "description": "",
+                    "size": null,
+                    "token": "done",
+                    "theme": null
+                  },
+                  "jumpLink": null,
+                  "items": [
+                    {
+                      "__typename": "PropertyInfoItem",
+                      "text": "Daily housekeeping",
+                      "state": null,
+                      "moreInfo": null,
+                      "icon": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "topAmenities": {
+            "__typename": "PropertyInfoContent",
+            "header": {
+              "__typename": "LodgingHeader",
+              "text": "Property highlights",
+              "subText": null,
+              "mark": null
+            },
+            "icon": null,
+            "jumpLink": null,
+            "items": [
+              {
+                "__typename": "PropertyInfoItem",
+                "text": "Free parking",
+                "state": null,
+                "moreInfo": null,
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "local_parking",
+                  "description": "",
+                  "size": null,
+                  "token": "local_parking",
+                  "theme": null
+                }
+              },
+              {
+                "__typename": "PropertyInfoItem",
+                "text": "Free WiFi",
+                "state": null,
+                "moreInfo": null,
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "wifi",
+                  "description": "",
+                  "size": null,
+                  "token": "wifi",
+                  "theme": null
+                }
+              },
+              {
+                "__typename": "PropertyInfoItem",
+                "text": "Air conditioning",
+                "state": null,
+                "moreInfo": null,
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "ac_unit",
+                  "description": "",
+                  "size": null,
+                  "token": "ac_unit",
+                  "theme": null
+                }
+              },
+              {
+                "__typename": "PropertyInfoItem",
+                "text": "Laundry facilities",
+                "state": null,
+                "moreInfo": null,
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "local_laundry_service",
+                  "description": "",
+                  "size": null,
+                  "token": "local_laundry_service",
+                  "theme": null
+                }
+              },
+              {
+                "__typename": "PropertyInfoItem",
+                "text": "24/7 front desk",
+                "state": null,
+                "moreInfo": null,
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "local_convenience_store",
+                  "description": "",
+                  "size": null,
+                  "token": "local_convenience_store",
+                  "theme": null
+                }
+              }
+            ]
+          },
+          "propertyContentPreferences": null,
+          "amenitiesDialog": {
+            "__typename": "LodgingAmenitiesDialog",
+            "trigger": {
+              "__typename": "LodgingDialogTriggerMessage",
+              "value": "See all",
+              "icon": {
+                "__typename": "Icon",
+                "id": "chevron_right",
+                "description": "View all amenities",
+                "size": null,
+                "token": "icon__chevron_right",
+                "theme": null
+              },
+              "clientSideAnalytics": {
+                "__typename": "ClientSideAnalytics",
+                "linkName": "View all amenities",
+                "referrerId": "HOT.HIS.ViewAllAmenities"
+              }
+            },
+            "toolbar": {
+              "__typename": "LodgingDialogToolbar",
+              "title": "Property amenities"
+            }
+          },
+          "takeover": {
+            "__typename": "PropertyTakeoverAmenities",
+            "amenityClosures": null,
+            "highlight": [
+              {
+                "__typename": "PropertyInfoContent",
+                "header": {
+                  "__typename": "LodgingHeader",
+                  "text": "Popular amenities",
+                  "subText": null,
+                  "mark": null
+                },
+                "icon": null,
+                "jumpLink": null,
+                "items": [
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Free parking",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": {
+                      "__typename": "Icon",
+                      "id": "local_parking",
+                      "description": "",
+                      "size": null,
+                      "token": "local_parking",
+                      "theme": null
+                    }
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Free WiFi",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": {
+                      "__typename": "Icon",
+                      "id": "wifi",
+                      "description": "",
+                      "size": null,
+                      "token": "wifi",
+                      "theme": null
+                    }
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Air conditioning",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": {
+                      "__typename": "Icon",
+                      "id": "ac_unit",
+                      "description": "",
+                      "size": null,
+                      "token": "ac_unit",
+                      "theme": null
+                    }
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Laundry facilities",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": {
+                      "__typename": "Icon",
+                      "id": "local_laundry_service",
+                      "description": "",
+                      "size": null,
+                      "token": "local_laundry_service",
+                      "theme": null
+                    }
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "24/7 front desk",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": {
+                      "__typename": "Icon",
+                      "id": "local_convenience_store",
+                      "description": "",
+                      "size": null,
+                      "token": "local_convenience_store",
+                      "theme": null
+                    }
+                  }
+                ]
+              }
+            ],
+            "property": [
+              {
+                "__typename": "PropertyInfoContent",
+                "header": {
+                  "__typename": "LodgingHeader",
+                  "text": "Services",
+                  "subText": null,
+                  "mark": null
+                },
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "room_service",
+                  "description": "",
+                  "size": null,
+                  "token": "room_service",
+                  "theme": null
+                },
+                "jumpLink": null,
+                "items": [
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "24-hour front desk",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": null
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Laundry facilities",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": null
+                  },
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Luggage storage",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": null
+                  }
+                ]
+              },
+              {
+                "__typename": "PropertyInfoContent",
+                "header": {
+                  "__typename": "LodgingHeader",
+                  "text": "Facilities",
+                  "subText": null,
+                  "mark": null
+                },
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "done",
+                  "description": "",
+                  "size": null,
+                  "token": "done",
+                  "theme": null
+                },
+                "jumpLink": null,
+                "items": [
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Lockers available",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": null
+                  }
+                ]
+              },
+              {
+                "__typename": "PropertyInfoContent",
+                "header": {
+                  "__typename": "LodgingHeader",
+                  "text": "Accessibility",
+                  "subText": null,
+                  "mark": null
+                },
+                "icon": {
+                  "__typename": "Icon",
+                  "id": "accessible",
+                  "description": "",
+                  "size": null,
+                  "token": "accessible",
+                  "theme": null
+                },
+                "jumpLink": null,
+                "items": [
+                  {
+                    "__typename": "PropertyInfoItem",
+                    "text": "Hardwood flooring in room",
+                    "state": null,
+                    "moreInfo": null,
+                    "icon": null
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "cleaningAndSafety": null,
+        "location": {
+          "__typename": "PropertyLocation",
+          "address": {
+            "__typename": "PropertyAddress",
+            "addressLine": "ул. Муниса, 22, Ташкент, Ташкентская обл., 100080",
+            "city": "Ташкент",
+            "province": "Ташкентская обл.",
+            "countryCode": "UZB",
+            "firstAddressLine": "ул. Муниса, 22",
+            "secondAddressLine": ""
+          },
+          "coordinates": {
+            "__typename": "Coordinates",
+            "latitude": 41.245596,
+            "longitude": 69.316218
+          },
+          "multiCityRegion": {
+            "__typename": "Region",
+            "id": "null"
+          },
+          "whatsAround": {
+            "__typename": "PropertyWhatsAround",
+            "editorial": {
+              "__typename": "PropertyEditorial",
+              "title": "Ташкент",
+              "content": [
+                "Hayot hostel is located in Mirobod District, a neighborhood in Tashkent. Seattle Peace Park and Flowers Garden Park reflect the area's natural beauty and area attractions include Central Park and Tashkentland. Anhor Lokomotiv Bogi and UzExpoCenter are also worth visiting. "
+              ]
+            }
+          },
+          "mapDialog": {
+            "__typename": "LodgingMapDialog",
+            "trigger": {
+              "__typename": "LodgingDialogTriggerMessage",
+              "value": "View in a map",
+              "icon": {
+                "__typename": "Icon",
+                "id": "chevron_right",
+                "description": "",
+                "size": null,
+                "token": "icon__chevron_right",
+                "theme": null
+              },
+              "clientSideAnalytics": {
+                "__typename": "ClientSideAnalytics",
+                "linkName": "ClickAddressCTALinkViewMap",
+                "referrerId": "HOT.HIS.ClickAddressCTALinkViewMap"
+              }
+            },
+            "toolbar": null
+          },
+          "staticImage": {
+            "__typename": "Image",
+            "description": "Map",
+            "url": "https://maps.googleapis.com/maps/api/staticmap?channel=expedia-HotelInformation&maptype=roadmap&format=jpg&zoom=13&scale=&size=600x120&markers=icon:https://a.travel-assets.com/shopping-pwa/images/his-preview-marker.png%7C41.245596,69.316218&key=AIzaSyCYjQus5kCufOpSj932jFoR_AJiL9yiwOw&signature=slMffvAUFl_HOpSHdA08-z6pNV4=",
+            "aspectRatio": null
+          }
+        },
+        "nearbyPOIs": null,
+        "lodgingChatbot": null
+      },
+      "propertyGallery": {
+        "__typename": "PropertyImageGallery",
+        "imagesGrouped": null,
+        "images": [
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Фасад объекта размещения, image",
+            "imageId": "759682709",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/19620e1d.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Фасад объекта размещения"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683830",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/660ae979.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683828",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/802b0769.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Трехместный номер «Эконом», image",
+            "imageId": "759683322",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/b46085f7.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Трехместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Одноместный номер «Эконом», image",
+            "imageId": "759683489",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/5048458e.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Одноместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683829",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/fa00c567.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Интерьер, вход, image",
+            "imageId": "759684196",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/b0882bdd.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Интерьер, вход"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Стойка регистрации, image",
+            "imageId": "759684198",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/680fe553.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Стойка регистрации"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Коридор, image",
+            "imageId": "759684199",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/6b73be07.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Коридор"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Коридор, image",
+            "imageId": "759684195",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/cabf487c.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Коридор"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Коридор, image",
+            "imageId": "759684194",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/6d95ad80.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Коридор"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Трехместный номер «Эконом», image",
+            "imageId": "759683325",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/29cb29a8.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Трехместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Трехместный номер «Эконом», image",
+            "imageId": "759683326",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/7de66aea.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Трехместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683442",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/9540f278.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Зона гостиной, image",
+            "imageId": "759682809",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/d2b82ac0.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Зона гостиной"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683725",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/12972462.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Интерьер, image",
+            "imageId": "759684193",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/4e97381d.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Интерьер"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Интерьер, image",
+            "imageId": "759684201",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/5c34e966.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Интерьер"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Интерьер, image",
+            "imageId": "759684200",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/c15c750d.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Интерьер"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683032",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/e61a24a4.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683728",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/0f0d66e6.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Трехместный номер «Эконом», image",
+            "imageId": "759683323",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/72e90117.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Трехместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683727",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/0b46309e.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683726",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/5fe7fcdc.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683729",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/44d9c3cd.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Собственная кухня, image",
+            "imageId": "759684197",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/2bb1e701.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Собственная кухня"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Зона гостиной, image",
+            "imageId": "759682866",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/7fa6aaff.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Зона гостиной"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 1 двуспальной кроватью, image",
+            "imageId": "759683730",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/bf77753e.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 1 двуспальной кроватью"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Одноместный номер «Эконом», image",
+            "imageId": "759682908",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/57688e9a.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Одноместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Трехместный номер «Эконом», image",
+            "imageId": "759683324",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/3c187a8b.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Трехместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Одноместный номер «Эконом», image",
+            "imageId": "759681147",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/fc180d0d.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Одноместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Одноместный номер «Эконом», image",
+            "imageId": "759682944",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/31c113f3.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Одноместный номер «Эконом»"
+            }
+          },
+          {
+            "__typename": "PropertyImage",
+            "accessibilityText": "Двухместный номер «Эконом» с 2 односпальными кроватями, image",
+            "imageId": "759683031",
+            "image": {
+              "__typename": "Image",
+              "url": "https://images.trvl-media.com/lodging/93000000/92840000/92832600/92832539/fb2f56b0.jpg?impolicy=resizecrop&rw=500&ra=fit",
+              "description": "Двухместный номер «Эконом» с 2 односпальными кроватями"
+            }
+          }
+        ],
+        "accessibilityLabel": "Photo gallery for Hayot hostel",
+        "thumbnailGalleryDialog": {
+          "__typename": "LodgingGalleryDialog",
+          "trigger": {
+            "__typename": "LodgingDialogTriggerMessage",
+            "value": "32+",
+            "icon": {
+              "__typename": "Icon",
+              "id": "photo_library",
+              "description": "",
+              "size": null,
+              "token": "icon__photo_library",
+              "theme": null
+            },
+            "clientSideAnalytics": {
+              "__typename": "ClientSideAnalytics",
+              "linkName": "Close Thumbnail Gallery Dialog via Cross button",
+              "referrerId": "App.HOT.HIS.PhotoGalleryTrigger.Close"
+            }
+          },
+          "toolbar": {
+            "__typename": "LodgingDialogToolbar",
+            "title": "Hayot hostel",
+            "icon": {
+              "__typename": "Icon",
+              "id": "arrow_back",
+              "description": "Cancel, go back to property details",
+              "size": null,
+              "token": "icon__arrow_back",
+              "theme": null
+            },
+            "clientSideAnalytics": null
+          }
+        },
+        "mediaGalleryDialog": {
+          "__typename": "LodgingGalleryDialog",
+          "trigger": {
+            "__typename": "LodgingDialogTriggerMessage",
+            "value": "32+",
+            "icon": null,
+            "clientSideAnalytics": null
+          },
+          "toolbar": {
+            "__typename": "LodgingDialogToolbar",
+            "title": "Hayot hostel",
+            "icon": {
+              "__typename": "Icon",
+              "id": "close",
+              "description": "Cancel, go back to property details",
+              "size": null,
+              "token": "icon__close",
+              "theme": null
+            },
+            "clientSideAnalytics": null
+          }
+        }
+      },
+      "reviewInfo": {
+        "__typename": "PropertyReviews",
+        "summary": {
+          "__typename": "PropertyReviewSummary",
+          "overallScoreWithDescriptionA11y": {
+            "__typename": "LodgingEnrichedMessage",
+            "value": ""
+          },
+          "propertyReviewCountDetails": {
+            "__typename": "PropertyReviewCountDetails",
+            "shortDescription": "See 1 review"
+          },
+          "highlightMessage": null,
+          "seeAllAction": {
+            "__typename": "PropertyFilteredReviewsDialog",
+            "trigger": {
+              "__typename": "LodgingDialogTriggerMessage",
+              "clientSideAnalytics": {
+                "__typename": "ClientSideAnalytics",
+                "linkName": "Open property reviews dialog",
+                "referrerId": "PropertyReviews.Open"
+              }
+            }
+          }
+        }
+      },
+      "propertyContentSectionGroups": {
+        "__typename": "PropertyContentSectionGroups",
+        "cleanliness": null,
+        "aboutThisProperty": {
+          "__typename": "PropertyContentSectionGroup",
+          "sectionName": null,
+          "sections": [
+            {
+              "__typename": "PropertyContentSection",
+              "sectionName": null,
+              "header": {
+                "__typename": "LodgingHeader",
+                "icon": null,
+                "text": "About this property",
+                "subText": null
+              },
+              "bodySubSections": [
+                {
+                  "__typename": "PropertyContentSubSection",
+                  "elements": [
+                    {
+                      "__typename": "PropertyContent",
+                      "header": {
+                        "__typename": "LodgingHeader",
+                        "text": "Хостел Hayot",
+                        "subText": null,
+                        "icon": null,
+                        "headerImage": null
+                      },
+                      "items": [
+                        {
+                          "__typename": "PropertyContentItemMarkup",
+                          "content": {
+                            "__typename": "MarkupText",
+                            "text": "Enjoy your visit to Tashkent with a stay at Hayot hostel. You'll have free perks like WiFi and self parking.   ",
+                            "markupType": "HTML"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "expando": null,
+                  "maxColumns": 1
+                },
+                {
+                  "__typename": "PropertyContentSubSection",
+                  "elements": [
+                    {
+                      "__typename": "PropertyContent",
+                      "header": {
+                        "__typename": "LodgingHeader",
+                        "text": "Languages",
+                        "subText": null,
+                        "icon": null,
+                        "headerImage": null
+                      },
+                      "items": [
+                        {
+                          "__typename": "PropertyContentItemText",
+                          "content": {
+                            "__typename": "PropertyContentText",
+                            "primary": {
+                              "__typename": "LodgingEnrichedMessage",
+                              "value": "English, Russian",
+                              "accessibilityLabel": null,
+                              "icon": null
+                            },
+                            "secondary": null
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "expando": null,
+                  "maxColumns": 1
+                }
+              ],
+              "action": null
+            }
+          ]
+        },
+        "policies": {
+          "__typename": "PropertyContentSectionGroup",
+          "sectionName": null,
+          "sections": [
+            {
+              "__typename": "PropertyContentSection",
+              "sectionName": "Fees & policies",
+              "header": {
+                "__typename": "LodgingHeader",
+                "icon": null,
+                "text": "Fees & policies",
+                "subText": null
+              },
+              "bodySubSections": [
+                {
+                  "__typename": "PropertyContentSubSection",
+                  "elements": [
+                    {
+                      "__typename": "PropertyContent",
+                      "header": {
+                        "__typename": "LodgingHeader",
+                        "text": "Mandatory fees",
+                        "subText": null,
+                        "icon": null,
+                        "headerImage": null
+                      },
+                      "items": [
+                        {
+                          "__typename": "PropertyContentItemMarkup",
+                          "content": {
+                            "__typename": "MarkupText",
+                            "text": "При заезде или выезде из объекта размещения вы должны будете оплатить следующие сборы:<br/>",
+                            "markupType": "HTML"
+                          }
+                        },
+                        {
+                          "__typename": "PropertyContentItemMarkup",
+                          "content": {
+                            "__typename": "MarkupText",
+                            "text": "<ul><li><strong>Городской налог:</strong> 1.44 USD за человека за ночь. Данным налогом не облагается пребывание детей в возрасте младше 16 лет. </li></ul>",
+                            "markupType": "HTML"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "expando": null,
+                  "maxColumns": 1
+                },
+                {
+                  "__typename": "PropertyContentSubSection",
+                  "elements": [
+                    {
+                      "__typename": "PropertyContent",
+                      "header": {
+                        "__typename": "LodgingHeader",
+                        "text": "Policies",
+                        "subText": null,
+                        "icon": null,
+                        "headerImage": null
+                      },
+                      "items": [
+                        {
+                          "__typename": "PropertyContentItemTexts",
+                          "contents": [
+                            {
+                              "__typename": "PropertyContentText",
+                              "primary": {
+                                "__typename": "LodgingEnrichedMessage",
+                                "value": "Если для въезда в страну вам требуется виза, ваш отель в большинстве случаев предоставит вам необходимые документы для ее получения. За более подробной информацией обращайтесь в отель, контактная информация указана в подтверждении бронирования. За эти услуги может взиматься дополнительная плата, даже в случае последующей отмены бронирования. Все договоренности осуществляются исключительно между вами и отелем. ",
+                                "accessibilityLabel": null,
+                                "icon": null
+                              },
+                              "secondary": null
+                            },
+                            {
+                              "__typename": "PropertyContentText",
+                              "primary": {
+                                "__typename": "LodgingEnrichedMessage",
+                                "value": "Примите во внимание, что все расчеты в отеле (как наличные, так и безналичные) осуществляются в долларах США или евро, в зависимости от того, какую валюту принимает отель. ",
+                                "accessibilityLabel": null,
+                                "icon": null
+                              },
+                              "secondary": null
+                            },
+                            {
+                              "__typename": "PropertyContentText",
+                              "primary": {
+                                "__typename": "LodgingEnrichedMessage",
+                                "value": "Шумоизоляция в номерах не гарантируется. ",
+                                "accessibilityLabel": null,
+                                "icon": null
+                              },
+                              "secondary": null
+                            },
+                            {
+                              "__typename": "PropertyContentText",
+                              "primary": {
+                                "__typename": "LodgingEnrichedMessage",
+                                "value": "В объекте размещения нет лифта. ",
+                                "accessibilityLabel": null,
+                                "icon": null
+                              },
+                              "secondary": null
+                            },
+                            {
+                              "__typename": "PropertyContentText",
+                              "primary": {
+                                "__typename": "LodgingEnrichedMessage",
+                                "value": "Этот объект размещения принимает к оплате кредитные карты и наличные.",
+                                "accessibilityLabel": null,
+                                "icon": null
+                              },
+                              "secondary": null
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "expando": null,
+                  "maxColumns": 1
+                },
+                {
+                  "__typename": "PropertyContentSubSection",
+                  "elements": [
+                    {
+                      "__typename": "PropertyContent",
+                      "header": {
+                        "__typename": "LodgingHeader",
+                        "text": "Also known as",
+                        "subText": null,
+                        "icon": null,
+                        "headerImage": null
+                      },
+                      "items": [
+                        {
+                          "__typename": "PropertyContentItemText",
+                          "content": {
+                            "__typename": "PropertyContentText",
+                            "primary": {
+                              "__typename": "LodgingEnrichedMessage",
+                              "value": "Hayot hostel Tashkent",
+                              "accessibilityLabel": null,
+                              "icon": null
+                            },
+                            "secondary": null
+                          }
+                        },
+                        {
+                          "__typename": "PropertyContentItemText",
+                          "content": {
+                            "__typename": "PropertyContentText",
+                            "primary": {
+                              "__typename": "LodgingEnrichedMessage",
+                              "value": "Hayot hostel Hostel/Backpacker accommodation",
+                              "accessibilityLabel": null,
+                              "icon": null
+                            },
+                            "secondary": null
+                          }
+                        },
+                        {
+                          "__typename": "PropertyContentItemText",
+                          "content": {
+                            "__typename": "PropertyContentText",
+                            "primary": {
+                              "__typename": "LodgingEnrichedMessage",
+                              "value": "Hayot hostel Hostel/Backpacker accommodation Tashkent",
+                              "accessibilityLabel": null,
+                              "icon": null
+                            },
+                            "secondary": null
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "expando": null,
+                  "maxColumns": 1
+                }
+              ],
+              "action": null
+            }
+          ]
+        },
+        "importantInfo": null
+      },
+      "saveTripItem": null
+    }
+  }
+}
