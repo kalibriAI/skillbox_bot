@@ -5,15 +5,16 @@ from aiogram.fsm.context import FSMContext
 import datetime
 from asyncio import sleep
 from asyncpg import Pool
+from typing import Union
 
-from telegram_bot.states.castom_machine import HotelSearchMachine
-from telegram_bot.api.request import get_city_request
-from telegram_bot.model.types import CheckInOutDate, HotelInfo
-from telegram_bot.api.request import get_hotels_request
-from telegram_bot.keyboard.inline import choose_sort_type, choose_search_type, make_hotel_page
-from telegram_bot.keyboard.default import scroll_hotel_keyboard
-from telegram_bot.service.bfuncs import make_total_days, insert_hotel
-from telegram_bot.const import *
+from SkillboxProject.telegram_bot.states.castom_machine import HotelSearchMachine
+from SkillboxProject.telegram_bot.api.request import get_city_request
+from SkillboxProject.telegram_bot.model.types import CheckInOutDate, HotelInfo
+from SkillboxProject.telegram_bot.api.request import get_hotels_request
+from SkillboxProject.telegram_bot.keyboard.inline import choose_sort_type, choose_search_type, make_hotel_page
+from SkillboxProject.telegram_bot.keyboard.default import scroll_hotel_keyboard
+from SkillboxProject.telegram_bot.service.bfuncs import make_total_days, insert_hotel
+from SkillboxProject.telegram_bot.const import *
 
 user_router = Router()
 
@@ -128,27 +129,31 @@ async def set_check_out_cmd(message: Message, state: FSMContext):
         if (1 <= day <= 31) and (1 <= month <= 12) and (year >= today_year):
             date = CheckInOutDate(day=day, month=month, year=year)
             await state.update_data(check_out=date)
-            await message.answer(
-                '✅<b>Дата выселения усешно сохранена.</b>\n\nТеперь нужно ввести кол-во отлей.\nПоиск выдаст столько вариантов отелей сколько вы введете, либо же если их будет меньше поиск покажет все. \n\n - Просто введите число:')
-            await state.set_state(HotelSearchMachine.result_size)
+            await message.answer('✅Отлично, теперь вам нужно выбрать как отсортировать отели.',
+                                 reply_markup=choose_sort_type())
+            await state.set_state(HotelSearchMachine.sort)
+
+
+@user_router.callback_query(F.data.startswith('sort'), HotelSearchMachine.sort)
+async def set_sort_type_query(callback: CallbackQuery, state: FSMContext):
+    sort_type = callback.data.split('sort_')[1]
+    if sort_type in ['lowest', 'highest']:
+        await state.update_data(cmd=sort_type)
+        await show_result(callback, state)
+    else:
+        await state.update_data(cmd=sort_type)
+        await callback.message.answer(
+            '✅<b>Тип сортировки отелей сохранен.</b>\n\nТеперь нужно ввести кол-во отлей.\nПоиск выдаст столько вариантов отелей сколько вы введете, либо же если их будет меньше поиск покажет все. \n\n - Просто введите число:')
+        await state.set_state(HotelSearchMachine.result_size)
 
 
 @user_router.message(HotelSearchMachine.result_size)
 async def set_result_size_cmd(message: Message, state: FSMContext):
     if message.text.isdigit():
         await state.update_data(result_size=int(message.text))
-        await message.answer('✅Отлично, теперь вам нужно выбрать как отсортировать отели.',
-                             reply_markup=choose_sort_type())
-        await state.set_state(HotelSearchMachine.sort)
-
-
-@user_router.callback_query(F.data.startswith('sort'), HotelSearchMachine.sort)
-async def set_sort_type_query(callback: CallbackQuery, state: FSMContext):
-    sort_type = callback.data.split('sort_')[1]
-    await state.update_data(sort_type=sort_type)
-    await callback.message.answer(
-        '✅<b>Вид сортировки выбран!</b>\n\n - Теперь введите диапазон цен вашего буджета.\n💵Для начала минимальная цена: ')
-    await state.set_state(HotelSearchMachine.min_price)
+        await message.answer(
+            '✅<b>Вид сортировки выбран!</b>\n\n - Теперь введите диапазон цен вашего буджета.\n💵Для начала минимальная цена: ')
+        await state.set_state(HotelSearchMachine.min_price)
 
 
 @user_router.message(HotelSearchMachine.min_price)
@@ -163,23 +168,31 @@ async def set_min_price_cmd(message: Message, state: FSMContext):
 async def set_max_price_cmd(message: Message, state: FSMContext):
     if message.text.isdigit():
         await state.update_data(max_price=int(message.text))
-        await message.answer('✅<b>Ввод данных завершен. Ожидайте!</b>\n✉️Это может продолжаться до нескольких минут.')
+        await show_result(message, state)
+
+
+async def show_result(event: Union[Message, CallbackQuery], state: FSMContext):
+    if isinstance(event, CallbackQuery):
+        event = event.message
+
+    await event.answer('✅<b>Ввод данных завершен. Ожидайте!</b>\n✉️Это может продолжаться до нескольких минут.')
+    data = await state.get_data()
+    try:
+        hotels = get_hotels_request(data)
+    except KeyError as e:
+        print('error (Key Error) - ', e)
+        await event.answer(
+            '<b>❗️Что то пошле не так. Поиск завершен❗️</b>\n\nВозможо:     • не верный ключ апи\n     • закончились запросы\n     • отелей не найдено!')
+    else:
+        total_days = make_total_days(data)
+        await state.clear()
+        await state.update_data(hotels=hotels, scroll_index=0, total_days=total_days)
         data = await state.get_data()
-        try:
-            hotels = get_hotels_request(data)
-        except KeyError:
-            await message.answer(
-                '<b>❗️Что то пошле не так. Поиск завершен❗️</b>\n\nВозможо:     • не верный ключ апи\n     • закончились запросы\n     • отелей не найдено!')
-        else:
-            total_days = make_total_days(data)
-            await state.clear()
-            await state.update_data(hotels=hotels, scroll_index=0, total_days=total_days)
-            data = await state.get_data()
-            await message.answer('✅<b>Данные успешно получены!</b>', reply_markup=scroll_hotel_keyboard())
-            page = make_hotel_page(data)
-            media_group = await message.answer_media_group(media=page[0])
-            info = await message.answer(page[1])
-            await state.update_data(current_hotel=(media_group, info))
+        page = make_hotel_page(data)
+        await event.answer('✅<b>Данные успешно получены!</b>', reply_markup=scroll_hotel_keyboard())
+        media_group = await event.answer_media_group(media=page[0])
+        info = await event.answer(page[1])
+        await state.update_data(current_hotel=(media_group, info))
 
 
 @user_router.message(F.text == '<')

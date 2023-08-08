@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from telegram_bot.model.types import HotelPhoto, HotelInfo
+from SkillboxProject.telegram_bot.model.types import HotelPhoto, HotelInfo
 
 
 def choose_cities_keyboard(cities) -> InlineKeyboardMarkup:
@@ -21,11 +21,10 @@ def choose_search_type() -> InlineKeyboardMarkup:
 
 
 def choose_sort_type() -> InlineKeyboardMarkup:
-    kb = [[InlineKeyboardButton(text='По Оценкам', callback_data='sort_REVIEW')],
-          [InlineKeyboardButton(text='По Дистанции от центра', callback_data='sort_DISTANCE')],
-          [InlineKeyboardButton(text='По Цене(по возрастанию)', callback_data='sort_PRICE_LOW_TO_HIGH')],
-          [InlineKeyboardButton(text='По Цене(по убыванию)', callback_data='sort_PRICE_HIGH_TO_LOW')],
-          [InlineKeyboardButton(text='По классу отеля', callback_data='sort_PROPERTY_CLASS')]]
+    kb = [[InlineKeyboardButton(text='По Цене(по возрастанию)', callback_data='sort_to_high')],
+          [InlineKeyboardButton(text='По Цене(по убыванию)', callback_data='sort_to_low')],
+          [InlineKeyboardButton(text='Самый дешевый', callback_data='sort_lowest')],
+          [InlineKeyboardButton(text='Самый дорогой', callback_data='sort_highest')]]
     keyboard = InlineKeyboardMarkup(inline_keyboard=kb)
     return keyboard
 

@@ -3,7 +3,8 @@ from aiogram import Bot
 from datetime import date
 from asyncpg import Pool, Connection
 
-from telegram_bot.model.types import HotelInfo
+from SkillboxProject.telegram_bot.model.types import HotelInfo, Destination, Reviews, Coordinates, Price
+from SkillboxProject.telegram_bot.api.request import get_hotel_detail_request
 
 
 async def set_user_commands(bot):

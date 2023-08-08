@@ -47,4 +47,4 @@ class HotelInfo(NamedTuple):
     reviews: Reviews
     photos: list[HotelPhoto]
     addres: str
-    needtoknow: str
+    needtoknow: list

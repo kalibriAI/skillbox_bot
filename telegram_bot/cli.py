@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import load_config
-from telegram_bot.filter.chat import ChatTypeFilter
+from filter.chat import ChatTypeFilter
 from handler import admin, info, user
 from service.bfuncs import set_commands, notify_admins
 
