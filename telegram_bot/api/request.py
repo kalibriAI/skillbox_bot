@@ -1,7 +1,7 @@
 import requests
-import json
-from pprint import pprint
 from colorama import Fore
+
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from SkillboxProject.telegram_bot.keyboard.inline import choose_cities_keyboard
 from SkillboxProject.telegram_bot.model.types import HotelInfo, HotelPhoto, Destination, Coordinates, Price, Reviews
@@ -14,6 +14,13 @@ headers = {
     "X-RapidAPI-Key": "2cce231b72msh85a89e1f3891c45p16902ajsnb46cbcd7a9e0",
     "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
 }
+
+
+def parse_properties(properties: list):
+    hotels = []
+    for hotel in properties:
+        hotels.append(create_hotel_info(hotel))
+    return hotels
 
 
 def create_hotel_info(hotel: dict) -> HotelInfo:
@@ -36,22 +43,24 @@ def create_hotel_info(hotel: dict) -> HotelInfo:
     return hotel_info
 
 
-def get_city_request(city_name: str):
+def get_city_request(city_name: str) -> InlineKeyboardMarkup:
     querystring = {"q": f"{city_name}", "locale": "ru_RU"}
     response = requests.get(LocationsV3Search, headers=headers, params=querystring).json()
-    if response['sr']:
+    try:
+        response['sr'][0]
+    except IndexError:
+        raise PermissionError('К сожалению, такой город не найден. Напиши другой)')
+    else:
         cities = list()
         for dest in response['sr']:
             if dest['type'] in ('CITY', 'NEIGHBORHOOD', 'REGION', 'POI'):
                 cities.append({'city_name': dest['regionNames']['fullName'],
                                'destination_id': dest['gaiaId'] if 'gaiaId' in dest.keys() else dest['hotelId']})
-    else:
-        raise PermissionError('К сожалению, такой город не найден. Напиши другой)')
 
-    return choose_cities_keyboard(cities)
+        return choose_cities_keyboard(cities)
 
 
-def get_hotels_request(hotel_data: dict):
+def get_hotels_request(hotel_data: dict) -> list[HotelInfo]:
     payload = {
         "currency": 'USD',
         "eapid": 1,
@@ -105,25 +114,19 @@ def get_hotels_request(hotel_data: dict):
         print(Fore.GREEN + 'STATUS:', Fore.BLUE + f'{response.status_code}')
         response = response.json()
         properties = response['data']['propertySearch']['properties']
-        hotels = []
         match hotel_data['cmd']:
             case 'to_high':
-                for hotel in properties:
-                    hotels.append(create_hotel_info(hotel))
+                hotels = parse_properties(properties)
                 return sorted(hotels, key=lambda x: x.price.amount, reverse=False)
             case 'to_low':
                 try:
                     properties = properties[::-1][:hotel_data['result_size']]
                 except IndexError:
-                    properties = properties[::-1]
-                    for hotel in properties:
-                        hotels.append(create_hotel_info(hotel))
+                    hotels = parse_properties(properties[::-1])
                     return sorted(hotels, key=lambda x: x.price.amount, reverse=True)
                 else:
-                    for hotel in properties:
-                        hotels.append(create_hotel_info(hotel))
+                    hotels = parse_properties(properties)
                     return sorted(hotels, key=lambda x: x.price.amount, reverse=True)
-
 
 
 def get_hotel_detail_request(hotel_id: str) -> tuple[list[HotelPhoto], str, list]:

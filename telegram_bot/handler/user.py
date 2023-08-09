@@ -1,6 +1,6 @@
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, ReplyKeyboardRemove
+from aiogram.types import Message, CallbackQuery  # , ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 import datetime
 from asyncio import sleep
@@ -9,11 +9,11 @@ from typing import Union
 
 from SkillboxProject.telegram_bot.states.castom_machine import HotelSearchMachine
 from SkillboxProject.telegram_bot.api.request import get_city_request
-from SkillboxProject.telegram_bot.model.types import CheckInOutDate, HotelInfo
+from SkillboxProject.telegram_bot.model.types import HotelInfo, CheckInOutDate
 from SkillboxProject.telegram_bot.api.request import get_hotels_request
 from SkillboxProject.telegram_bot.keyboard.inline import choose_sort_type, choose_search_type, make_hotel_page
 from SkillboxProject.telegram_bot.keyboard.default import scroll_hotel_keyboard
-from SkillboxProject.telegram_bot.service.bfuncs import make_total_days, insert_hotel
+from SkillboxProject.telegram_bot.service.bfuncs import make_total_days
 from SkillboxProject.telegram_bot.const import *
 
 user_router = Router()
@@ -87,7 +87,10 @@ async def search_by_dest_query(callback: CallbackQuery, state: FSMContext):
 @user_router.message(HotelSearchMachine.destination)
 async def search_by_dest_cmd(message: Message):
     city = message.text
-    await message.answer('🔎📍Уточните местоположение: ', reply_markup=get_city_request(city))
+    try:
+        await message.answer('🔎📍Уточните местоположение: ', reply_markup=get_city_request(city))
+    except PermissionError as e:
+        await message.answer(str(e))
 
 
 @user_router.callback_query(F.data.startswith('dest'))
@@ -241,20 +244,19 @@ async def scroll_left_button(message: Message, state: FSMContext):
             await msg.delete()
         await data['current_hotel'][1].delete()
 
-
-@user_router.message(F.text == 'Выбрать✅')
-async def choose_hotel_cmd(message: Message, state: FSMContext, pool: Pool):
-    data = await state.get_data()
-    hotels, index = data['hotels'], data['scroll_index']
-    current_hotel: HotelInfo = data['hotels'][index]._asdict()
-    if await insert_hotel(current_hotel, pool, message.from_user.id):
-        for msg in data['current_hotel'][0]:
-            await msg.delete()
-        await data['current_hotel'][1].delete()
-        await message.answer(
-            f'<b>Выбран отель - {hotels[index].name}</b>\nВы можете посмотреть историю выбранных отолей командой - <code>/history</code>',
-            reply_markup=ReplyKeyboardRemove())
-    else:
-        notify = await message.answer('У вас уже выбран отель с данном номером!')
-        await notify.delete()
-        await message.delete()
+# @user_router.message(F.text == 'Выбрать✅')
+# async def choose_hotel_cmd(message: Message, state: FSMContext, pool: Pool):
+#     data = await state.get_data()
+#     hotels, index = data['hotels'], data['scroll_index']
+#     current_hotel: HotelInfo = data['hotels'][index]._asdict()
+#     if await insert_hotel(current_hotel, pool, message.from_user.id):
+#         for msg in data['current_hotel'][0]:
+#             await msg.delete()
+#         await data['current_hotel'][1].delete()
+#         await message.answer(
+#             f'<b>Выбран отель - {hotels[index].name}</b>\nВы можете посмотреть историю выбранных отолей командой - <code>/history</code>',
+#             reply_markup=ReplyKeyboardRemove())
+#     else:
+#         notify = await message.answer('У вас уже выбран отель с данном номером!')
+#         await notify.delete()
+#         await message.delete()

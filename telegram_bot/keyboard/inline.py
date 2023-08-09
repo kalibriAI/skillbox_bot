@@ -1,10 +1,10 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from SkillboxProject.telegram_bot.model.types import HotelPhoto, HotelInfo
+from SkillboxProject.telegram_bot.model.types import HotelInfo
 
 
-def choose_cities_keyboard(cities) -> InlineKeyboardMarkup:
+def choose_cities_keyboard(cities: list[dict]) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     for city in cities:
         builder.add(InlineKeyboardButton(text=city['city_name'], callback_data=f'dest{city["destination_id"]}'))
@@ -29,12 +29,7 @@ def choose_sort_type() -> InlineKeyboardMarkup:
     return keyboard
 
 
-def choose_hotel_keyboard(hotels, data):
-    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='<', callback_data='scroll_left')],
-                                                 [InlineKeyboardButton(text='>', callback_data='scroll_right')]])
-
-
-def make_hotel_page(data):
+def make_hotel_page(data: dict) -> tuple[list, str]:
     index = data['scroll_index']
     current_hotel: HotelInfo = data['hotels'][index]
     photos = current_hotel.photos
