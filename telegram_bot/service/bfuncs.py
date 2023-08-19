@@ -1,6 +1,7 @@
 from aiogram.types import BotCommand, BotCommandScopeDefault, BotCommandScopeChat
 from aiogram import Bot
 from datetime import date
+from asyncpg import Pool
 
 
 async def set_user_commands(bot: Bot) -> None:
@@ -35,4 +36,9 @@ def make_total_days(data: dict) -> int:
     start_date = date(data['check_in'].year, data['check_in'].month, data['check_in'].day)
     end_date = date(data['check_out'].year, data['check_out'].month, data['check_out'].day)
     return (end_date - start_date).days + 1
+
+
+async def register_user(pool: Pool, uid: int, key: str) -> None:
+    async with pool.acquire() as con:
+        await con.execute('insert into users (id, key) values ($1, $2)', uid, key)
 

@@ -23,6 +23,7 @@ user_router = Router()
 async def search_cmd(message: Message, state: FSMContext):
     await message.answer(start_message, reply_markup=choose_search_type())
     await state.set_state(HotelSearchMachine.search_type)
+    await state.set_state(HotelSearchMachine.search_type)
 
 
 @user_router.callback_query(HotelSearchMachine.search_type, F.data == 'search_by_cord')
@@ -85,10 +86,12 @@ async def search_by_dest_query(callback: CallbackQuery, state: FSMContext):
 
 
 @user_router.message(HotelSearchMachine.destination)
-async def search_by_dest_cmd(message: Message):
+async def search_by_dest_cmd(message: Message, pool):
+    async with pool.acquire() as con:
+        key = await con.fetchrow('select key from users where id = $1', message.from_user.id)
     city = message.text
     try:
-        await message.answer('🔎📍Уточните местоположение: ', reply_markup=get_city_request(city))
+        await message.answer('🔎📍Уточните местоположение: ', reply_markup=get_city_request(city, key['key']))
     except PermissionError as e:
         await message.answer(str(e))
 
@@ -138,11 +141,11 @@ async def set_check_out_cmd(message: Message, state: FSMContext):
 
 
 @user_router.callback_query(F.data.startswith('sort'), HotelSearchMachine.sort)
-async def set_sort_type_query(callback: CallbackQuery, state: FSMContext):
+async def set_sort_type_query(callback: CallbackQuery, state: FSMContext, pool):
     sort_type = callback.data.split('sort_')[1]
     if sort_type in ['lowest', 'highest']:
         await state.update_data(cmd=sort_type)
-        await show_result(callback, state)
+        await show_result(callback, state, pool)
     else:
         await state.update_data(cmd=sort_type)
         await callback.message.answer(
@@ -168,22 +171,25 @@ async def set_min_price_cmd(message: Message, state: FSMContext):
 
 
 @user_router.message(HotelSearchMachine.max_price)
-async def set_max_price_cmd(message: Message, state: FSMContext):
+async def set_max_price_cmd(message: Message, state: FSMContext, pool: Pool):
     if message.text.isdigit():
         await state.update_data(max_price=int(message.text))
-        await show_result(message, state)
+        await show_result(message, state, pool)
 
 
-async def show_result(event: Union[Message, CallbackQuery], state: FSMContext):
+async def show_result(event: Union[Message, CallbackQuery], state: FSMContext, pool: Pool):
+    async with pool.acquire() as con:
+        api_key = await con.fetchrow('select key from users where id = $1', event.from_user.id)
+
     if isinstance(event, CallbackQuery):
         event = event.message
 
     await event.answer('✅<b>Ввод данных завершен. Ожидайте!</b>\n✉️Это может продолжаться до нескольких минут.')
     data = await state.get_data()
     try:
-        hotels = get_hotels_request(data)
-    except KeyError as e:
-        print('error (Key Error) - ', e)
+        hotels = get_hotels_request(data, api_key['key'])
+    except ValueError as e:
+        print('error - ', e)
         await event.answer(
             '<b>❗️Что то пошле не так. Поиск завершен❗️</b>\n\nВозможо:     • не верный ключ апи\n     • закончились запросы\n     • отелей не найдено!')
     else:
@@ -191,6 +197,7 @@ async def show_result(event: Union[Message, CallbackQuery], state: FSMContext):
         await state.clear()
         await state.update_data(hotels=hotels, scroll_index=0, total_days=total_days)
         data = await state.get_data()
+        print(data)
         page = make_hotel_page(data)
         await event.answer('✅<b>Данные успешно получены!</b>', reply_markup=scroll_hotel_keyboard())
         media_group = await event.answer_media_group(media=page[0])
@@ -211,10 +218,14 @@ async def scroll_left_button(message: Message, state: FSMContext):
 
         await state.update_data(scroll_index=index - 1)
         data = await state.get_data()
-        page = make_hotel_page(data)
-        media_group = await message.answer_media_group(media=page[0])
-        info = await message.answer(page[1])
-        await state.update_data(current_hotel=(media_group, info))
+        try:
+            page = make_hotel_page(data)
+        except IndexError:
+            await message.answer('Отели не найдены')
+        else:
+            media_group = await message.answer_media_group(media=page[0])
+            info = await message.answer(page[1])
+            await state.update_data(current_hotel=(media_group, info))
     else:
         notify = await message.answer('Это первыя страница, вы не можете листать назад!')
         await sleep(2)
@@ -230,10 +241,14 @@ async def scroll_left_button(message: Message, state: FSMContext):
     try:
         await state.update_data(scroll_index=index + 1)
         data = await state.get_data()
-        page = make_hotel_page(data)
-        media_group = await message.answer_media_group(media=page[0])
-        info = await message.answer(page[1])
-        await state.update_data(current_hotel=(media_group, info))
+        try:
+            page = make_hotel_page(data)
+        except IndexError:
+            await message.answer('Отели не найдены')
+        else:
+            media_group = await message.answer_media_group(media=page[0])
+            info = await message.answer(page[1])
+            await state.update_data(current_hotel=(media_group, info))
     except IndexError:
         await state.update_data(scroll_index=index - 1)
         notify = await message.answer('Это последняя страница, вы не можете листать вперед!')

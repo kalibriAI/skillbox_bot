@@ -8,10 +8,11 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import load_config
 from filter.chat import ChatTypeFilter
-from handler import admin, info, user
+from handler import admin, user, registration
 from service.bfuncs import set_commands, notify_admins
-
 from middleware.db import DatabaseMiddleware
+from filter.check_user import UserExists
+
 
 init(autoreset=True)
 logger = logging.getLogger(__name__)
@@ -38,12 +39,13 @@ async def main():
     bot = Bot(token=config.tg_bot.token, parse_mode='html')
     dp = Dispatcher(storage=storage)
 
-    dp.include_router(info.info_router)
     dp.include_router(admin.admin_router)
+    dp.include_router(registration.reg_router)
     dp.include_router(user.user_router)
 
     dp.update.middleware(DatabaseMiddleware(pool))
     user.user_router.message.filter(ChatTypeFilter())
+    user.user_router.message.filter(UserExists(pool))
 
     await set_commands(bot, config.tg_bot.admin_id)
 

@@ -1,7 +1,7 @@
-import requests
 from colorama import Fore
-
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+import requests
+from aiogram.types import InlineKeyboardMarkup
+from pprint import pprint
 
 from SkillboxProject.telegram_bot.keyboard.inline import choose_cities_keyboard
 from SkillboxProject.telegram_bot.model.types import HotelInfo, HotelPhoto, Destination, Coordinates, Price, Reviews
@@ -9,22 +9,31 @@ from SkillboxProject.telegram_bot.model.types import HotelInfo, HotelPhoto, Dest
 LocationsV3Search = "https://hotels4.p.rapidapi.com/locations/v3/search"
 PropertiesV2List = "https://hotels4.p.rapidapi.com/properties/v2/list"
 PropertiesV2Details = "https://hotels4.p.rapidapi.com/properties/v2/detail"
+UrlForTest = "https://hotels4.p.rapidapi.com/v2/get-meta-data"
 
 headers = {
-    "X-RapidAPI-Key": "2cce231b72msh85a89e1f3891c45p16902ajsnb46cbcd7a9e0",
+    "X-RapidAPI-Key": '',
     "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
 }
 
 
-def parse_properties(properties: list):
-    hotels = []
-    for hotel in properties:
-        hotels.append(create_hotel_info(hotel))
-    return hotels
+def parse_properties(properties: list, headers_):
+    return [create_hotel_info(hotel, headers_) for hotel in properties]
 
 
-def create_hotel_info(hotel: dict) -> HotelInfo:
-    hotel_detail = get_hotel_detail_request(hotel['id'])
+def make_headers(api_key: str) -> dict:
+    headers_ = headers
+    headers_['X-RapidAPI-Key'] = api_key
+    return headers_
+
+
+def test_repuest(api_key: str):
+    response = requests.get(UrlForTest, headers=make_headers(api_key))
+    return True if response.status_code == 200 else False
+
+
+def create_hotel_info(hotel: dict, headers_: dict) -> HotelInfo:
+    hotel_detail = get_hotel_detail_request(hotel['id'], headers_)
     hotel_info = HotelInfo(
         id=hotel['id'],
         name=hotel['name'],
@@ -43,9 +52,9 @@ def create_hotel_info(hotel: dict) -> HotelInfo:
     return hotel_info
 
 
-def get_city_request(city_name: str) -> InlineKeyboardMarkup:
+def get_city_request(city_name: str, api_key: str) -> InlineKeyboardMarkup:
     querystring = {"q": f"{city_name}", "locale": "ru_RU"}
-    response = requests.get(LocationsV3Search, headers=headers, params=querystring).json()
+    response = requests.get(LocationsV3Search, headers=make_headers(api_key), params=querystring).json()
     try:
         response['sr'][0]
     except IndexError:
@@ -60,9 +69,9 @@ def get_city_request(city_name: str) -> InlineKeyboardMarkup:
         return choose_cities_keyboard(cities)
 
 
-def get_hotels_request(hotel_data: dict) -> list[HotelInfo]:
+def get_hotels_request(hotel_data: dict, key: str) -> list[HotelInfo]:
     payload = {
-        "currency": 'USD',
+        "currency": "USD",
         "eapid": 1,
         "locale": "en_US",
         "siteId": 300000001,
@@ -78,71 +87,62 @@ def get_hotels_request(hotel_data: dict) -> list[HotelInfo]:
         },
         "rooms": [
             {
-                "adults": 2
+                "adults": 2,
             }
         ],
         "resultsStartingIndex": 0,
-        "resultsSize": 999999999,
-        "sort": 'PRICE_LOW_TO_HIGH',
+        "resultsSize": 20000,
+        "sort": "PRICE_LOW_TO_HIGH",
         "filters": {"price": {
-            "max": 999999999,
+            "max": 999999,
             "min": 1
         }}
     }
+    headers_ = make_headers(key)
     if 'region_id' in hotel_data:
         payload['destination'] = dict(regionId=hotel_data['region_id'])
     else:
         payload['destination'] = dict(
             coordinates=dict(latitude=hotel_data['latitude'], longitude=hotel_data['longitude']))
-
-    if hotel_data['cmd'] in ['lowest', 'highest']:
-        response = requests.post(PropertiesV2List, json=payload, headers=headers)
-        print(Fore.GREEN + 'STATUS:', Fore.BLUE + f'{response.status_code}')
-        response = response.json()
-        match hotel_data['cmd']:
-            case 'lowest':
-                hotel = response['data']['propertySearch']['properties'][0]
-                return [create_hotel_info(hotel)]
-            case 'highest':
-                hotel = response['data']['propertySearch']['properties'][-1]
-                return [create_hotel_info(hotel)]
-    else:
-        payload['resultsSize'] = hotel_data['result_size'] if hotel_data['cmd'] == 'to_high' else 99999999
+    if hotel_data['cmd'] == 'to_high':
+        payload['resultsSize'] = hotel_data['result_size']
         payload['filters']['price']['max'] = hotel_data['max_price']
         payload['filters']['price']['min'] = hotel_data['min_price']
-        response = requests.post(PropertiesV2List, json=payload, headers=headers)
-        print(Fore.GREEN + 'STATUS:', Fore.BLUE + f'{response.status_code}')
-        response = response.json()
-        properties = response['data']['propertySearch']['properties']
+    response = requests.post(PropertiesV2List, json=payload, headers=headers_)
+    print(Fore.GREEN + 'STATUS:', Fore.BLUE + f'{response.status_code}')
+    result = response.json()
+
+    try:
+
+        properties = result['data']['propertySearch']['properties']
+    except (TypeError, KeyError):
+        try:
+            print(result['errors'][0]['extensions']['event']['message'])
+        except (KeyError, TypeError):
+            print('Какая то другая ошибка')
+        raise ValueError('АПИ не вернул ожидаемое значение - список отелей')
+
+    else:
         match hotel_data['cmd']:
             case 'to_high':
-                hotels = parse_properties(properties)
-                return sorted(hotels, key=lambda x: x.price.amount, reverse=False)
-            case 'to_low':
-                try:
-                    properties = properties[::-1][:hotel_data['result_size']]
-                except IndexError:
-                    hotels = parse_properties(properties[::-1])
-                    return sorted(hotels, key=lambda x: x.price.amount, reverse=True)
-                else:
-                    hotels = parse_properties(properties)
-                    return sorted(hotels, key=lambda x: x.price.amount, reverse=True)
+                hotels = parse_properties(properties, headers_)
+                return sorted(hotels, key=lambda x: x.price.amount)
+            case 'lowest':
+                return [create_hotel_info(properties[0], headers_)]
+            case 'highest':
+                return [create_hotel_info(properties[-1], headers_)]
+    finally:
+        with open('log.json', 'w', encoding='utf-8') as file:
+            file.write(response.text)
 
 
-def get_hotel_detail_request(hotel_id: str) -> tuple[list[HotelPhoto], str, list]:
-    payload = {
-        "currency": "USD",
-        "locale": "ru_RU",
-        "propertyId": hotel_id
-    }
-
-    response = requests.post(PropertiesV2Details, json=payload, headers=headers).json()
+def get_hotel_detail_request(hotel_id: str, headers_: dict) -> tuple[list[HotelPhoto], str, list]:
+    payload = {"currency": "USD", "locale": "ru_RU", "propertyId": hotel_id}
+    response = requests.post(PropertiesV2Details, json=payload, headers=headers_)
+    response = response.json()
 
     images_data = response['data']['propertyInfo']['propertyGallery']['images']
-    images = []
-
-    for image in images_data:
-        images.append(HotelPhoto(url=image['image']['url'], description=image['image']['description']))
+    images = [HotelPhoto(url=image['image']['url'], description=image['image']['description']) for image in images_data]
 
     addres = response['data']['propertyInfo']['summary']['location']['address']['addressLine']
     needtoknow = response['data']['propertyInfo']['summary']['policies']['needToKnow']['body']
