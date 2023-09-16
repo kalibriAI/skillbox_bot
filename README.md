@@ -13,9 +13,8 @@ pip install requirements.txt
 
 
 ### Запуск
-- Создать файл bot.ini
-- Заполнить данными
-  ```
+- Создать файл bot.ini c содержимым
+   ```
   [bot]
   token =
   admin_id =
@@ -26,8 +25,9 @@ pip install requirements.txt
   user =
   database =
     ```
+- Заполнить данными bot.ini
+
 - Создать базу данных ПосгреСКЛ
-- Заполнить bot.ini своими данными
 - Запустить файл cli.py
 
 ### База данных
