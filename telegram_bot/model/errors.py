@@ -1,0 +1,2 @@
+class HotelAlredyRememdered(Exception):
+    pass

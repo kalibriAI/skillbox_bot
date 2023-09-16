@@ -1,10 +1,11 @@
+from typing import Union
+
 from colorama import Fore
 import requests
 from aiogram.types import InlineKeyboardMarkup
-from pprint import pprint
 
-from SkillboxProject.telegram_bot.keyboard.inline import choose_cities_keyboard
-from SkillboxProject.telegram_bot.model.types import HotelInfo, HotelPhoto, Destination, Coordinates, Price, Reviews
+from keyboard.inline import choose_cities_keyboard
+from model.types import HotelInfo, HotelPhoto, Destination, Coordinates, Price, Reviews
 
 LocationsV3Search = "https://hotels4.p.rapidapi.com/locations/v3/search"
 PropertiesV2List = "https://hotels4.p.rapidapi.com/properties/v2/list"
@@ -17,25 +18,66 @@ headers = {
 }
 
 
-def parse_properties(properties: list, headers_):
+def parse_properties(properties: list, headers_: dict):
+    """
+    Функция переобразует список отелей прямиком из АПИ в список состоящий из типов данных HotelInfo.
+
+    :param properties: список отелей из апи запроса
+    :type properties: list
+    :param headers_: заголовки для конкретного юзера
+    :type headers_: dict
+
+    :return: список из типов данных HotelInfo содержащий информацию об отелях.
+    :rtype: list
+    """
     return [create_hotel_info(hotel, headers_) for hotel in properties]
 
 
 def make_headers(api_key: str) -> dict:
+    """
+    Функция для создния заголовков под конкретного юзера
+
+    :param api_key: АПИ ключ пользователя
+    :type api_key: str
+
+    :return: словарь с заголовками пользователя
+    :rtype: dict
+    """
     headers_ = headers
     headers_['X-RapidAPI-Key'] = api_key
     return headers_
 
 
 def test_repuest(api_key: str):
+    """
+    Функция для проверки действительности ключа при регистрации пользователя
+
+    :param api_key: АПИ ключ пользователя
+    :type api_key: str
+
+    :return: True - если ключ рабочий. False - если ключ не рабочий
+    :rtype: bool
+    """
     response = requests.get(UrlForTest, headers=make_headers(api_key))
     return True if response.status_code == 200 else False
 
 
 def create_hotel_info(hotel: dict, headers_: dict) -> HotelInfo:
+    """
+    Функция для переоброзования данных об отеле в спец. объект
+
+    :param hotel: данные об отеле
+    :type hotel: dict
+
+    :param headers_: заголовки для конкретного юзера
+    :type headers_: dict
+
+    :return: возвращает объект HotelInfo
+    :rtype: HotelInfo
+    """
     hotel_detail = get_hotel_detail_request(hotel['id'], headers_)
     hotel_info = HotelInfo(
-        id=hotel['id'],
+        id=int(hotel['id']),
         name=hotel['name'],
         destination=Destination(unit=hotel['destinationInfo']['distanceFromDestination']['unit'],
                                 value=hotel['destinationInfo']['distanceFromDestination']['value']),
@@ -53,6 +95,18 @@ def create_hotel_info(hotel: dict, headers_: dict) -> HotelInfo:
 
 
 def get_city_request(city_name: str, api_key: str) -> InlineKeyboardMarkup:
+    """
+    Функция для оточнения локации.
+
+    :param city_name: название места введенного пользователем
+    :type city_name: str
+
+    :param api_key: АПИ ключ конкретного юзера
+    :type api_key: str
+
+    :return: возвращает клавиатуру с возможными вариантами локаций, для уточнения
+    :rtype: InlineKeyboardMarkup
+    """
     querystring = {"q": f"{city_name}", "locale": "ru_RU"}
     response = requests.get(LocationsV3Search, headers=make_headers(api_key), params=querystring).json()
     try:
@@ -69,7 +123,21 @@ def get_city_request(city_name: str, api_key: str) -> InlineKeyboardMarkup:
         return choose_cities_keyboard(cities)
 
 
-def get_hotels_request(hotel_data: dict, key: str) -> list[HotelInfo]:
+def get_hotels_request(hotel_data: dict, key: str) -> Union[list[HotelInfo], HotelInfo]:
+    """
+    Основная функция для отправки запросов на получение отелей.
+
+    :param hotel_data: данные введенные пользователем для посика отелей
+    :type hotel_data: dict
+
+    :param key: АПИ ключ конкретного юзера
+    :type key: str
+
+    :return: возвращает либо СПИСОК из типов данных HotelInfo, либо один объект - HotelInfo
+    :rtype: Union[list[HotelInfo], HotelInfo]
+
+    :raises ValueError: Если АПИ вернул некорректные данные, то вызывается это исключение и поиск отелей прекращается.
+    """
     payload = {
         "currency": "USD",
         "eapid": 1,
@@ -113,7 +181,6 @@ def get_hotels_request(hotel_data: dict, key: str) -> list[HotelInfo]:
     result = response.json()
 
     try:
-
         properties = result['data']['propertySearch']['properties']
     except (TypeError, KeyError):
         try:
@@ -131,12 +198,22 @@ def get_hotels_request(hotel_data: dict, key: str) -> list[HotelInfo]:
                 return [create_hotel_info(properties[0], headers_)]
             case 'highest':
                 return [create_hotel_info(properties[-1], headers_)]
-    finally:
-        with open('log.json', 'w', encoding='utf-8') as file:
-            file.write(response.text)
 
 
 def get_hotel_detail_request(hotel_id: str, headers_: dict) -> tuple[list[HotelPhoto], str, list]:
+    """
+    Функция для получения подробной информации об отеле.
+
+    :param hotel_id: айди отеля
+    :type hotel_id: str
+
+    :param headers_: заголовки конкретного юзера
+    :type headers_: str
+
+    :return: возвращает сет состощий из 10 фоток отеля, адреса отеля и информации "Need To Know"
+    :rtype: tuple[list[HotelPhoto], str, list]
+
+    """
     payload = {"currency": "USD", "locale": "ru_RU", "propertyId": hotel_id}
     response = requests.post(PropertiesV2Details, json=payload, headers=headers_)
     response = response.json()
@@ -147,4 +224,4 @@ def get_hotel_detail_request(hotel_id: str, headers_: dict) -> tuple[list[HotelP
     addres = response['data']['propertyInfo']['summary']['location']['address']['addressLine']
     needtoknow = response['data']['propertyInfo']['summary']['policies']['needToKnow']['body']
 
-    return images, addres, needtoknow
+    return images[:10], addres, needtoknow

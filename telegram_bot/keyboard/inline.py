@@ -1,10 +1,19 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from SkillboxProject.telegram_bot.model.types import HotelInfo
+from model.types import HotelInfo
 
 
 def choose_cities_keyboard(cities: list[dict]) -> InlineKeyboardMarkup:
+    """
+    Создает и возвращает клавиатуру для выбора городов.
+
+    :param cities: Список городов.
+    :type cities: list[dict]
+    :return: Клавиатура для выбора городов.
+    :rtype: InlineKeyboardMarkup
+    """
+
     builder = InlineKeyboardBuilder()
     for city in cities:
         builder.add(InlineKeyboardButton(text=city['city_name'], callback_data=f'dest{city["destination_id"]}'))
@@ -13,6 +22,13 @@ def choose_cities_keyboard(cities: list[dict]) -> InlineKeyboardMarkup:
 
 
 def choose_search_type() -> InlineKeyboardMarkup:
+    """
+    Создает и возвращает клавиатуру для выбора типа поиска.
+
+    :return: Клавиатура для выбора типа поиска.
+    :rtype: InlineKeyboardMarkup
+    """
+
     kb = [[InlineKeyboardButton(text='По Координатам', callback_data='search_by_cord')],
           [InlineKeyboardButton(text='По Городам', callback_data='search_by_city')],
           [InlineKeyboardButton(text='По текущей локации', callback_data='search_by_location')]]
@@ -21,6 +37,13 @@ def choose_search_type() -> InlineKeyboardMarkup:
 
 
 def choose_sort_type() -> InlineKeyboardMarkup:
+    """
+    Создает и возвращает клавиатуру для выбора типа сортировки.
+
+    :return: Клавиатура для выбора типа сортировки.
+    :rtype: InlineKeyboardMarkup
+    """
+
     kb = [[InlineKeyboardButton(text='По Цене(по возрастанию)', callback_data='sort_to_high')],
           [InlineKeyboardButton(text='Самый дешевый', callback_data='sort_lowest')],
           [InlineKeyboardButton(text='Самый дорогой', callback_data='sort_highest')]]
@@ -29,11 +52,22 @@ def choose_sort_type() -> InlineKeyboardMarkup:
 
 
 def make_hotel_page(data: dict) -> tuple[list, str]:
+    """
+    Создает страницу с информацией об отеле.
+
+    :param data: Данные об отеле.
+    :type data: dict
+    :return: Медиагруппа с фотографиями и описание отеля.
+    :rtype: tuple[list, str]
+    :raises IndexError: Если индекс отеля выходит за пределы списка.
+    """
+
     index = data['scroll_index']
+    print(index)
     try:
         current_hotel: HotelInfo = data['hotels'][index]
     except TypeError:
-        raise IndexError('')
+        raise IndexError
     else:
         photos = current_hotel.photos
         media_group = []

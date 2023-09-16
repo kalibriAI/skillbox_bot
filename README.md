@@ -12,10 +12,22 @@
 - Добавить кнопку завершить поиск, чтоб поиск не заканчивался после выбора одного отеля.
 ##### Первый релиз выйдет после закрытия выше перечисленных обновлений
 
-### Требуемые библиотеки и модули для запуска бота
+### Установка зависимостей
+```terminal
+pip install requirements.txt
+```
 
-| Lib | Command |
-|-----|---------|
-| aiogram | ```pip install aiogram -U --pre``` |
-| asyncpg | ```pip install asyncpg``` |
-| colorama | ```pip install colorama``` |
+
+### Запуск
+- Переименовать файл: bot.ini.template -> bot.ini
+- Создать базу данных ПосгреСКЛ
+- Заполнить bot.ini своими данными
+- Запустить файл cli.py
+
+### База данных
+Для работы бота вам нужно вручную выполнить следуюзие запросы в вашей базе:
+
+```create table users (id int primary key, key text);```
+
+```create table hotels (id serial primary key, owner int, hotel_id int, data json);```
+

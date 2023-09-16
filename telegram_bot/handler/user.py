@@ -1,29 +1,39 @@
+import asyncio
+from pprint import pprint
+
 from aiogram import Router, F
-from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery  # , ReplyKeyboardRemove
+from aiogram.filters import Command, StateFilter
+from aiogram.types import Message, CallbackQuery, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 import datetime
 from asyncio import sleep
 from asyncpg import Pool
 from typing import Union
 
-from SkillboxProject.telegram_bot.states.castom_machine import HotelSearchMachine
-from SkillboxProject.telegram_bot.api.request import get_city_request
-from SkillboxProject.telegram_bot.model.types import HotelInfo, CheckInOutDate
-from SkillboxProject.telegram_bot.api.request import get_hotels_request
-from SkillboxProject.telegram_bot.keyboard.inline import choose_sort_type, choose_search_type, make_hotel_page
-from SkillboxProject.telegram_bot.keyboard.default import scroll_hotel_keyboard
-from SkillboxProject.telegram_bot.service.bfuncs import make_total_days
-from SkillboxProject.telegram_bot.const import *
+from model.errors import HotelAlredyRememdered
+from states.castom_machine import HotelSearchMachine
+from api.request import get_city_request
+from model.types import HotelInfo, CheckInOutDate
+from api.request import get_hotels_request
+from keyboard.inline import choose_sort_type, choose_search_type, make_hotel_page
+from keyboard.default import scroll_hotel_keyboard
+from service.bfuncs import make_total_days, insert_hotel
+from const import *
 
 user_router = Router()
 
 
-@user_router.message(Command('search'))
+@user_router.message(Command('search'), StateFilter(None))
 async def search_cmd(message: Message, state: FSMContext):
     await message.answer(start_message, reply_markup=choose_search_type())
     await state.set_state(HotelSearchMachine.search_type)
     await state.set_state(HotelSearchMachine.search_type)
+
+
+@user_router.message(Command('stop'), StateFilter('*'))
+async def help_cmd(message: Message, state):
+    await state.clear()
+    await message.answer('Процесс прерван!')
 
 
 @user_router.callback_query(HotelSearchMachine.search_type, F.data == 'search_by_cord')
@@ -113,13 +123,19 @@ async def set_check_in_cmd(message: Message, state: FSMContext):
         print(e)
 
     else:
-        today_year = datetime.date.today().year
-        if (1 <= day <= 31) and (1 <= month <= 12) and (year >= today_year):
+        today_year, today_month, today_day = datetime.date.today().year, datetime.date.today().month, datetime.date.today().day
+        if ((1 <= day <= 31) and (today_day <= day)) and ((1 <= month <= 12) and (today_month <= month)) and (
+                today_year <= year):
             date = CheckInOutDate(day=day, month=month, year=year)
             await state.update_data(check_in=date)
             await message.answer(
                 '✅<b>Дата заселения усешно сохранена</b>.\n\n - Теперь введите дату выселения из отеля, по тому же формату:')
             await state.set_state(HotelSearchMachine.check_out)
+        else:
+            msg = await message.answer('Указана неверная дата!')
+            await asyncio.sleep(2)
+            await msg.delete()
+            await message.delete()
 
 
 @user_router.message(HotelSearchMachine.check_out)
@@ -131,13 +147,20 @@ async def set_check_out_cmd(message: Message, state: FSMContext):
         print(e)
 
     else:
-        today_year = datetime.date.today().year
-        if (1 <= day <= 31) and (1 <= month <= 12) and (year >= today_year):
+        data = await state.get_data()
+        check_in = data['check_in']
+        if ((1 <= day <= 31) and (day >= check_in.day)) and ((1 <= month <= 12) and (month >= check_in.month)) and (
+                year >= check_in.year):
             date = CheckInOutDate(day=day, month=month, year=year)
             await state.update_data(check_out=date)
             await message.answer('✅Отлично, теперь вам нужно выбрать как отсортировать отели.',
                                  reply_markup=choose_sort_type())
             await state.set_state(HotelSearchMachine.sort)
+        else:
+            msg = await message.answer('Указана неверная дата!')
+            await asyncio.sleep(2)
+            await msg.delete()
+            await message.delete()
 
 
 @user_router.callback_query(F.data.startswith('sort'), HotelSearchMachine.sort)
@@ -155,11 +178,22 @@ async def set_sort_type_query(callback: CallbackQuery, state: FSMContext, pool):
 
 @user_router.message(HotelSearchMachine.result_size)
 async def set_result_size_cmd(message: Message, state: FSMContext):
-    if message.text.isdigit():
-        await state.update_data(result_size=int(message.text))
-        await message.answer(
-            '✅<b>Вид сортировки выбран!</b>\n\n - Теперь введите диапазон цен вашего буджета.\n💵Для начала минимальная цена: ')
-        await state.set_state(HotelSearchMachine.min_price)
+    try:
+        int(message.text)
+    except ValueError:
+        temp = await message.answer('Ведите число!')
+        await asyncio.sleep(2)
+        await temp.delete()
+        await message.delete()
+    else:
+        if message.text.isdigit() and int(message.text) <= 30:
+            await state.update_data(result_size=int(message.text))
+            await message.answer(
+                '✅<b>Вид сортировки выбран!</b>\n\n - Теперь введите диапазон цен вашего буджета.\n💵Для начала минимальная цена: ')
+            await state.set_state(HotelSearchMachine.min_price)
+        else:
+            await message.answer(
+                'За раз вы можете получить максимум 30 отелей, во избежание долгой загрузки и исчерпания лимита запросов.')
 
 
 @user_router.message(HotelSearchMachine.min_price)
@@ -191,13 +225,12 @@ async def show_result(event: Union[Message, CallbackQuery], state: FSMContext, p
     except ValueError as e:
         print('error - ', e)
         await event.answer(
-            '<b>❗️Что то пошле не так. Поиск завершен❗️</b>\n\nВозможо:     • не верный ключ апи\n     • закончились запросы\n     • отелей не найдено!')
+            '<b>❗️Что то пошле не так. Поиск завершен❗️</b>\n\nВозможо:\n     • не верный ключ апи\n     • закончились запросы\n     • отелей не найдено\n     • по геолокации не найдено отелей!')
     else:
         total_days = make_total_days(data)
         await state.clear()
         await state.update_data(hotels=hotels, scroll_index=0, total_days=total_days)
         data = await state.get_data()
-        print(data)
         page = make_hotel_page(data)
         await event.answer('✅<b>Данные успешно получены!</b>', reply_markup=scroll_hotel_keyboard())
         media_group = await event.answer_media_group(media=page[0])
@@ -212,24 +245,22 @@ async def scroll_left_button(message: Message, state: FSMContext):
     index = data['scroll_index']
 
     if index >= 1:
-        for msg in data['current_hotel'][0]:
-            await msg.delete()
-        await data['current_hotel'][1].delete()
-
-        await state.update_data(scroll_index=index - 1)
-        data = await state.get_data()
         try:
+            await state.update_data(scroll_index=index - 1)
+            data = await state.get_data()
             page = make_hotel_page(data)
-        except IndexError:
-            await message.answer('Отели не найдены')
-        else:
             media_group = await message.answer_media_group(media=page[0])
             info = await message.answer(page[1])
             await state.update_data(current_hotel=(media_group, info))
-    else:
-        notify = await message.answer('Это первыя страница, вы не можете листать назад!')
-        await sleep(2)
-        await notify.delete()
+        except IndexError:
+            await state.update_data(scroll_index=index + 1)
+            notify = await message.answer('Это первыя страница, вы не можете листать назад!')
+            await sleep(2)
+            await notify.delete()
+        else:
+            for msg in data['current_hotel'][0]:
+                await msg.delete()
+            await data['current_hotel'][1].delete()
 
 
 @user_router.message(F.text == '>')
@@ -241,14 +272,11 @@ async def scroll_left_button(message: Message, state: FSMContext):
     try:
         await state.update_data(scroll_index=index + 1)
         data = await state.get_data()
-        try:
-            page = make_hotel_page(data)
-        except IndexError:
-            await message.answer('Отели не найдены')
-        else:
-            media_group = await message.answer_media_group(media=page[0])
-            info = await message.answer(page[1])
-            await state.update_data(current_hotel=(media_group, info))
+
+        page = make_hotel_page(data)
+        media_group = await message.answer_media_group(media=page[0])
+        info = await message.answer(page[1])
+        await state.update_data(current_hotel=(media_group, info))
     except IndexError:
         await state.update_data(scroll_index=index - 1)
         notify = await message.answer('Это последняя страница, вы не можете листать вперед!')
@@ -259,19 +287,26 @@ async def scroll_left_button(message: Message, state: FSMContext):
             await msg.delete()
         await data['current_hotel'][1].delete()
 
-# @user_router.message(F.text == 'Выбрать✅')
-# async def choose_hotel_cmd(message: Message, state: FSMContext, pool: Pool):
-#     data = await state.get_data()
-#     hotels, index = data['hotels'], data['scroll_index']
-#     current_hotel: HotelInfo = data['hotels'][index]._asdict()
-#     if await insert_hotel(current_hotel, pool, message.from_user.id):
-#         for msg in data['current_hotel'][0]:
-#             await msg.delete()
-#         await data['current_hotel'][1].delete()
-#         await message.answer(
-#             f'<b>Выбран отель - {hotels[index].name}</b>\nВы можете посмотреть историю выбранных отолей командой - <code>/history</code>',
-#             reply_markup=ReplyKeyboardRemove())
-#     else:
-#         notify = await message.answer('У вас уже выбран отель с данном номером!')
-#         await notify.delete()
-#         await message.delete()
+
+@user_router.message(F.text == 'Выбрать✅')
+async def choose_hotel_cmd(message: Message, state: FSMContext, pool: Pool):
+    data = await state.get_data()
+    hotels, index = data['hotels'], data['scroll_index']
+    current_hotel: HotelInfo = data['hotels'][index]
+    try:
+        await insert_hotel(current_hotel, pool, message.from_user.id)
+    except HotelAlredyRememdered as eroor:
+        error_message = await message.answer(str(eroor))
+        await asyncio.sleep(3)
+        await error_message.delete()
+
+    else:
+        await message.answer(
+            f'<b>Выбран отель - {hotels[index].name}</b>\nВы можете посмотреть историю выбранных отолей командой - <code>/history</code>',
+            reply_markup=ReplyKeyboardRemove())
+        for msg in data['current_hotel'][0]:
+            await msg.delete()
+        await data['current_hotel'][1].delete()
+
+    finally:
+        await message.delete()
