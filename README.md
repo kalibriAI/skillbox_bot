@@ -13,7 +13,19 @@ pip install requirements.txt
 
 
 ### Запуск
-- Переименовать файл: bot.ini.template -> bot.ini
+- Создать файл bot.ini
+- Заполнить данными
+  ```
+  [bot]
+  token =
+  admin_id =
+
+  [db]
+  host =
+  password =
+  user =
+  database =
+    ```
 - Создать базу данных ПосгреСКЛ
 - Заполнить bot.ini своими данными
 - Запустить файл cli.py
